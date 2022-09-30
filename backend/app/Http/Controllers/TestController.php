@@ -25,7 +25,7 @@ class TestController extends Controller
 
         $num = $request->num;
         $m = $num; // to not alter the input value of the function
-        
+
         $is_neg = false;
 
         if($num < 0){
@@ -82,6 +82,67 @@ class TestController extends Controller
         return response()->json([
             "status" => "Success",
             "message" => $str
+        ]);
+
+    }
+
+
+    function evaluatePrefix(Request $request){
+        $string = $request->string;
+        $delimiter = ' ';
+
+        // split the string by spaces onto an array
+        $arr = explode($delimiter, $string);
+        
+        //  helper function that takes an array(prefix notation splitted) and return 
+        //  a smaller one (simplified expression of the same prefix notation splitted)
+        function simplifyExpression($arr){
+            $stack = [];
+            $i = 0;
+
+            while($i<sizeof($arr)){
+
+                if($i == sizeof($arr) - 1){
+                    array_push($stack, $arr[$i]);
+                    break;
+                }
+
+                else if ($arr[$i] != "*" && $arr[$i] != "+" && $arr[$i] != "-" 
+                    && $arr[$i + 1] != "*" && $arr[$i + 1] != "+" && $arr[$i + 1] != "-"){
+
+                    $operator = array_pop($stack);
+                    $operand1 = $arr[$i];
+                    $operand2 = $arr[++$i];
+
+                    if($operator == "*"){
+                        array_push($stack, $operand1 * $operand2);
+                        $arr[$i] = $operand1 * $operand2;
+                    }
+                    else if ($operator == "+"){
+                        array_push($stack, $operand1 + $operand2);
+                        $arr[$i] = $operand1 + $operand2;
+                    }
+                    else if ($operator == "-"){
+                        array_push($stack, $operand1 - $operand2);
+                        $arr[$i] = $operand1 - $operand2;
+                    }
+                }
+                else{
+                    array_push($stack, $arr[$i]);
+                }
+                $i++;
+            }
+            return $stack;
+        };
+
+        
+        while (sizeof($arr) > 1){
+            $arr = simplifyExpression($arr);
+        }
+
+        return response()->json([
+            "status" => "Success",
+            "message" => $arr
         ]);
 
     }
