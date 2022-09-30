@@ -55,4 +55,31 @@ class TestController extends Controller
         ]);
 
     }
+
+
+
+    function humanToProgramer(Request $request){
+
+        $string = $request->string;
+        $str = $string; // to not alter the input value of the function
+        $pattern = "/\d+/";
+        $replace_array = [];
+
+        preg_match_all($pattern, $str, $matches);
+
+        foreach ($matches[0] as $value){
+            array_push($replace_array, decbin($value));
+        };
+
+        for($i = 0; $i < sizeof($replace_array); $i++){
+            $m = $matches[0][$i];
+            $str = preg_replace('/'.$m.'/', $replace_array[$i], $str);
+        }
+
+        return response()->json([
+            "status" => "Success",
+            "message" => $str
+        ]);
+
+    }
 }
