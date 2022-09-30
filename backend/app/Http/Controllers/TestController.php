@@ -26,6 +26,13 @@ class TestController extends Controller
         $num = $request->num;
         $m = $num; // to not alter the input value of the function
         
+        $is_neg = false;
+
+        if($num < 0){
+            $is_neg = true;
+            $m = -$m;  
+        };
+        
         $nb_digits = countDigits($m);
         
         $array = [];
@@ -34,7 +41,11 @@ class TestController extends Controller
 
             $o = floor($m / 10 ** ($nb_digits - $i - 1)) * 10 **($nb_digits - $i - 1);
             $m = $m - $o;
-            array_push($array, $o);
+
+            if ($is_neg)
+                array_push($array, -$o);
+            else 
+                array_push($array, $o);
 
         }
 
