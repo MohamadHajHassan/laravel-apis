@@ -6,12 +6,22 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    function sayHi(){
-        $message = "Hi";
+    
+    function placeValue(Request $request){
 
-        return response()->json([
-            "status" => "Success",
-            "message" => $message
-        ]);
+        function countDigits($n){
+
+            $count = 0;
+            $m = $n; //to not alter the input value of the function
+    
+            while($m != 0){
+                $m = floor($m/10);
+                $count++;
+            }
+
+            return $count;
+
+        }
+
     }
 }
