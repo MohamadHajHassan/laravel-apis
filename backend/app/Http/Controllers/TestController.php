@@ -23,5 +23,25 @@ class TestController extends Controller
 
         }
 
+        $num = $request->num;
+        $m = $num; // to not alter the input value of the function
+        
+        $nb_digits = countDigits($m);
+        
+        $array = [];
+
+        for ($i = 0; $i < $nb_digits; $i++){
+
+            $o = floor($m / 10 ** ($nb_digits - $i - 1)) * 10 **($nb_digits - $i - 1);
+            $m = $m - $o;
+            array_push($array, $o);
+
+        }
+
+        return response()->json([
+            "status" => "Success",
+            "message" => $array
+        ]);
+
     }
 }
