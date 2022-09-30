@@ -135,7 +135,7 @@ class TestController extends Controller
             return $stack;
         };
 
-        
+
         while (sizeof($arr) > 1){
             $arr = simplifyExpression($arr);
         }
@@ -146,4 +146,58 @@ class TestController extends Controller
         ]);
 
     }
+
+
+    function sortString(Request $request){
+    
+        $string = $request->string;
+        $res = [];
+        $str = $string; // to not alter the input value of the function
+
+        $pattern_capital_letters = "/[A-Z]/";
+        $pattern_small_letters = "/[a-z]/";
+        $pattern_numbers = "/\d/";
+        preg_match_all($pattern_capital_letters, $str, $matches_capital_letters);
+        preg_match_all($pattern_small_letters, $str, $matches_small_letters);
+        preg_match_all($pattern_numbers, $str, $matches_numbers);
+
+        sort($matches_capital_letters[0]);
+        sort($matches_small_letters[0]);
+        sort($matches_numbers[0]);
+
+        $i = $j = $k = 0;
+        while($i <= sizeof($matches_capital_letters) && $j <= sizeof($matches_small_letters)){
+
+            if(ord($matches_small_letters[0][$j]) -32 <= ord($matches_capital_letters[0][$i])){
+                array_push($res, $matches_small_letters[0][$j]);
+                $j++;
+            }else{
+                array_push($res, $matches_capital_letters[0][$i]);
+                $i++;
+            }
+        }
+
+        while($i <= sizeof($matches_capital_letters)){
+            array_push($res, $matches_capital_letters[0][$i]);
+            $i++;
+        }
+
+        while($j <= sizeof($matches_small_letters)){
+            array_push($res, $matches_small_letters[0][$j]);
+                $j++;
+        }
+
+        while($k <= sizeof($matches_numbers)){
+            array_push($res, $matches_numbers[0][$k]);
+            $k++;
+        }
+
+        $str_res = join("", $res);
+
+        return response()->json([
+            "status" => "Success",
+            "message" => $str_res
+        ]);
+    }
+
 }
