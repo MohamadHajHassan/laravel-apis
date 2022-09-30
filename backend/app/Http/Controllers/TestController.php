@@ -65,12 +65,15 @@ class TestController extends Controller
         $pattern = "/\d+/";
         $replace_array = [];
 
+        // get all the numbers inside the string and put them in an array matches[0]
         preg_match_all($pattern, $str, $matches);
 
+        // get the binary transformation for each value inside matches[0] and put them in the array reaplace_array
         foreach ($matches[0] as $value){
             array_push($replace_array, decbin($value));
         };
 
+        // match every value from matches[0] and replace it with the corresponding value(the binary transformation) from replace_array
         for($i = 0; $i < sizeof($replace_array); $i++){
             $m = $matches[0][$i];
             $str = preg_replace('/'.$m.'/', $replace_array[$i], $str);
