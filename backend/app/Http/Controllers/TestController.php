@@ -142,7 +142,7 @@ class TestController extends Controller
 
         return response()->json([
             "status" => "Success",
-            "message" => $arr
+            "evaluation" => $arr[0]
         ]);
 
     }
