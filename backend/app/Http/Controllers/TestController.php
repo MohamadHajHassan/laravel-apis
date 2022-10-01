@@ -177,17 +177,17 @@ class TestController extends Controller
             }
         }
 
-        while($i <= sizeof($matches_capital_letters)){
+        while($i < sizeof($matches_capital_letters[0])){
             array_push($res, $matches_capital_letters[0][$i]);
             $i++;
         }
 
-        while($j <= sizeof($matches_small_letters)){
+        while($j < sizeof($matches_small_letters[0])){
             array_push($res, $matches_small_letters[0][$j]);
                 $j++;
         }
 
-        while($k <= sizeof($matches_numbers)){
+        while($k < sizeof($matches_numbers[0])){
             array_push($res, $matches_numbers[0][$k]);
             $k++;
         }
