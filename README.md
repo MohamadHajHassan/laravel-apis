@@ -5,6 +5,7 @@ This project is created to be submitted as assignment 14 in FSW_o_c5 bootcamp (b
 
 Due date: 30/9/2022
 
+
 Assignment explanation:
 -----------------------
 1.You are asked to implement the following APIs using Laravel:
@@ -40,3 +41,8 @@ N.B:
 "+ 5 4" ➞ 9
 "* 12 2" ➞ 24
 "+ -10 10" ➞ 0
+
+
+Documentation URL:
+-----------------
+https://documenter.getpostman.com/view/23648464/2s83tCMZEM
