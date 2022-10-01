@@ -1,5 +1,5 @@
 # laravel-apis
-Laravel apis assignment 01
+Laravel apis assignment
 
 This project is created to be submitted as assignment 14 in FSW_o_c5 bootcamp (by SE Factory)
 
